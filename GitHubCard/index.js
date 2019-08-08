@@ -3,17 +3,18 @@
            https://api.github.com/users/<your name>
 */
 
-// axios.get('https://api.github.com/users/dereketman')
-//   .then((response) => {
-//     // response.data.forEach( item => {
-//     //   let card = cardBuilder(item);
-//     //   parent.appendChild(card);
-//     // }) 
-//       console.log(response);
-//   })
-//   .catch((error) => {
-//     console.log("Error", error);
-//   })
+axios.get('https://api.github.com/users/dereketman')
+  .then((response) => {
+    console.log(response);
+
+    response.data.message.forEach( item => {
+      let card = cardBuilder(item);
+      cards.appendChild(card);
+    }) 
+  })
+  .catch((error) => {
+    console.log("Error", error);
+  })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -97,11 +98,17 @@ function cardBuilder(ele){
   cardName.classList.add('name');
   cardUserName.classList.add('username');
 
-
-
+  //setting content on page
+  userImg.src = ele.avatar_url;
+  cardName.textContent = ele.name;
+  cardUsername = ele.login;
+  cardLocation = ele.location;
+  cardProfLink = ele.html_url;
+  cardFollowers = ele.followers;
+  cardFollowing = ele.following;
 
   // returning the new card
-
+  return card
 }
 
 
