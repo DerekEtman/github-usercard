@@ -5,10 +5,14 @@
 
 // axios.get('https://api.github.com/users/dereketman')
 //   .then((response) => {
-//     console.log(response);
+//     // response.data.forEach( item => {
+//     //   let card = cardBuilder(item);
+//     //   parent.appendChild(card);
+//     // }) 
+//       console.log(response);
 //   })
-//   .catch((err) => {
-//     console.log(err);
+//   .catch((error) => {
+//     console.log("Error", error);
 //   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -56,10 +60,49 @@ const followersArray = [];
 
 */
 
-const cardBuilder = () => {
+function cardBuilder(ele){
+  // create the elements that want
+  let card = document.createElement('div');
+  let userImg = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let cardName = document.createElement('h3');
+  let cardUserName = document.createElement('p');
+  let cardLocation = document.crateElement('p');
+  let cardProfile = document.createElement('p');
+  let cardProfLink = document.createElement('a');
+  let cardFollowers = document.createElement('p');
+  let cardFollowing = document.createElement('p');
   
-}
 
+  // creating the structure of the card using .append child
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+
+    cardInfo.appendChild(cardName);
+    cardInfo.appendChild(cardUserName);
+    cardInfo.appendChild(cardLocation);
+
+    cardInfo.appendChild(cardProfile);
+     cardProfile.appendChild(cardProfLink);
+
+    cardInfo.appendChild(cardFollowers);
+    cardInfo.appendChild(cardFollowing);
+
+  // create class lists
+
+  card.classList.add('cards', 'card');
+  userImg.classList.add('img');
+  cardInfo.classList.add('card');
+  cardName.classList.add('name');
+  cardUserName.classList.add('username');
+
+
+
+
+  // returning the new card
+
+}
 
 
 /* List of LS Instructors Github username's: 
