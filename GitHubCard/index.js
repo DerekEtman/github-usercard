@@ -3,17 +3,19 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/dereketman')
-  .then((response) => {
-    console.log(response);
 
-    response.data.message.forEach( item => {
-      let card = cardBuilder(item);
-      cards.appendChild(card);
-    }) 
+
+axios.get('https://api.github.com/users/dereketman')
+.then((response) => {
+  // console.log(response.data);
+
+  let newCard = cardBuilder(response.data);
+  let test = document.querySelector('.cards');
+  test.appendChild(newCard);
+
   })
   .catch((error) => {
-    console.log("Error", error);
+    console.log("Error: ", error);
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -36,11 +38,6 @@ axios.get('https://api.github.com/users/dereketman')
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
-
-
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -68,7 +65,7 @@ function cardBuilder(ele){
   let cardInfo = document.createElement('div');
   let cardName = document.createElement('h3');
   let cardUserName = document.createElement('p');
-  let cardLocation = document.crateElement('p');
+  let cardLocation = document.createElement('p');
   let cardProfile = document.createElement('p');
   let cardProfLink = document.createElement('a');
   let cardFollowers = document.createElement('p');
@@ -94,18 +91,17 @@ function cardBuilder(ele){
 
   card.classList.add('cards', 'card');
   userImg.classList.add('img');
-  cardInfo.classList.add('card');
   cardName.classList.add('name');
   cardUserName.classList.add('username');
 
   //setting content on page
   userImg.src = ele.avatar_url;
   cardName.textContent = ele.name;
-  cardUsername = ele.login;
-  cardLocation = ele.location;
-  cardProfLink = ele.html_url;
-  cardFollowers = ele.followers;
-  cardFollowing = ele.following;
+  cardUserName.textContent = ele.login;
+  cardLocation.textContent = ele.location;
+  cardProfLink.textContent = ele.html_url;
+  cardFollowers.textContent = ele.followers;
+  cardFollowing.textContent = ele.following;
 
   // returning the new card
   return card
