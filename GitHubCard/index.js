@@ -2,16 +2,23 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const followersArray = [  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+Promise.all(followersArray.map(user => axios.get(`https://api.github.com/users/${user}`) 
+)).then((users) => {
+  users.map(usersData => {
+    let newCard = cardBuilder(usersData.data);
+    let test = document.querySelector('.cards');
+    test.appendChild(newCard);
+  })
 
 
 
-axios.get('https://api.github.com/users/dereketman')
-.then((response) => {
-  // console.log(response.data);
-
-  let newCard = cardBuilder(response.data);
-  let test = document.querySelector('.cards');
-  test.appendChild(newCard);
+ 
 
   })
   .catch((error) => {
@@ -67,7 +74,7 @@ function cardBuilder(ele){
   let cardUserName = document.createElement('p');
   let cardLocation = document.createElement('p');
   let cardProfile = document.createElement('p');
-  let cardProfLink = document.createElement('a');
+  let cardProfLink = document.createElement('url');
   let cardFollowers = document.createElement('p');
   let cardFollowing = document.createElement('p');
   
@@ -98,10 +105,10 @@ function cardBuilder(ele){
   userImg.src = ele.avatar_url;
   cardName.textContent = ele.name;
   cardUserName.textContent = ele.login;
-  cardLocation.textContent = ele.location;
-  cardProfLink.textContent = ele.html_url;
-  cardFollowers.textContent = ele.followers;
-  cardFollowing.textContent = ele.following;
+  cardLocation.textContent = 'Location: ' + ele.location;
+  cardProfLink.textContent = 'Profile: ' + ele.html_url;
+  cardFollowers.textContent = 'Followers: ' + ele.followers;
+  cardFollowing.textContent = 'Following: ' + ele.following;
 
   // returning the new card
   return card
