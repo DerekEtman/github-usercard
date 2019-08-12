@@ -2,6 +2,28 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const followersArray = [  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+Promise.all(followersArray.map(user => axios.get(`https://api.github.com/users/${user}`) 
+)).then((users) => {
+  users.map(usersData => {
+    let newCard = cardBuilder(usersData.data);
+    let test = document.querySelector('.cards');
+    test.appendChild(newCard);
+  })
+
+
+
+ 
+
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+  })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -23,9 +45,6 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -45,6 +64,56 @@ const followersArray = [];
 </div>
 
 */
+
+function cardBuilder(ele){
+  // create the elements that want
+  let card = document.createElement('div');
+  let userImg = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let cardName = document.createElement('h3');
+  let cardUserName = document.createElement('p');
+  let cardLocation = document.createElement('p');
+  let cardProfile = document.createElement('p');
+  let cardProfLink = document.createElement('url');
+  let cardFollowers = document.createElement('p');
+  let cardFollowing = document.createElement('p');
+  
+
+  // creating the structure of the card using .append child
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+
+    cardInfo.appendChild(cardName);
+    cardInfo.appendChild(cardUserName);
+    cardInfo.appendChild(cardLocation);
+
+    cardInfo.appendChild(cardProfile);
+     cardProfile.appendChild(cardProfLink);
+
+    cardInfo.appendChild(cardFollowers);
+    cardInfo.appendChild(cardFollowing);
+
+  // create class lists
+
+  card.classList.add('cards', 'card');
+  userImg.classList.add('img');
+  cardName.classList.add('name');
+  cardUserName.classList.add('username');
+
+  //setting content on page
+  userImg.src = ele.avatar_url;
+  cardName.textContent = ele.name;
+  cardUserName.textContent = ele.login;
+  cardLocation.textContent = 'Location: ' + ele.location;
+  cardProfLink.textContent = 'Profile: ' + ele.html_url;
+  cardFollowers.textContent = 'Followers: ' + ele.followers;
+  cardFollowing.textContent = 'Following: ' + ele.following;
+
+  // returning the new card
+  return card
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
